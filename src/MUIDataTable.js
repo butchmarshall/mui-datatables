@@ -1803,7 +1803,16 @@ class MUIDataTable extends React.Component {
       classes,
       className,
       title,
-      components: { TableBody, TableFilterList, TableFooter, TableHead, TableResize, TableToolbar, TableToolbarSelect },
+      components: {
+        TableBody,
+        TableFilterList,
+        TableFooter,
+        TableHead,
+        TableResize,
+        TableToolbar,
+        TableToolbarSelect,
+        DragDropBackend = HTML5Backend,
+      },
     } = this.props;
     const {
       announceText,
@@ -1966,7 +1975,7 @@ class MUIDataTable extends React.Component {
               tableId={this.options.tableId}
             />
           )}
-          <DndProvider backend={HTML5Backend} {...dndProps}>
+          <DndProvider backend={DragDropBackend} {...dndProps}>
             <MuiTable
               ref={el => (this.tableRef = el)}
               tabIndex={'0'}
