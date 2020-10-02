@@ -1975,66 +1975,75 @@ class MUIDataTable extends React.Component {
               tableId={this.options.tableId}
             />
           )}
-          <DndProvider backend={DragDropBackend} {...dndProps}>
-            <MuiTable
-              ref={el => (this.tableRef = el)}
-              tabIndex={'0'}
-              role={'grid'}
-              className={tableClassNames}
-              {...tableProps}>
-              <caption className={classes.caption}>{title}</caption>
-              <TableHeadComponent
-                columns={columns}
-                activeColumn={activeColumn}
-                data={displayData}
-                count={rowCount}
-                page={page}
-                rowsPerPage={rowsPerPage}
-                selectedRows={selectedRows}
-                selectRowUpdate={this.selectRowUpdate}
-                toggleSort={this.toggleSortColumn}
-                setCellRef={this.setHeadCellRef}
-                expandedRows={expandedRows}
-                areAllRowsExpanded={this.areAllRowsExpanded}
-                toggleAllExpandableRows={this.toggleAllExpandableRows}
-                options={this.options}
-                sortOrder={sortOrder}
-                columnOrder={columnOrder}
-                updateColumnOrder={this.updateColumnOrder}
-                draggableHeadCellRefs={this.draggableHeadCellRefs}
-                tableRef={this.getTableContentRef}
-                tableId={this.options.tableId}
-                timers={this.timers}
-                components={this.props.components}
-              />
-              <TableBodyComponent
-                data={displayData}
-                count={rowCount}
-                columns={columns}
-                page={page}
-                rowsPerPage={rowsPerPage}
-                selectedRows={selectedRows}
-                selectRowUpdate={this.selectRowUpdate}
-                previousSelectedRow={previousSelectedRow}
-                expandedRows={expandedRows}
-                toggleExpandRow={this.toggleExpandRow}
-                options={this.options}
-                columnOrder={columnOrder}
-                filterList={filterList}
-                components={this.props.components}
-                tableId={this.options.tableId}
-              />
-              {this.options.customTableBodyFooterRender
-                ? this.options.customTableBodyFooterRender({
-                    data: displayData,
-                    count: rowCount,
-                    columns,
-                    selectedRows,
-                    selectableRows: this.options.selectableRows,
-                  })
-                : null}
-            </MuiTable>
-          </DndProvider>
+          {(() => {
+            const components = (
+                <MuiTable
+                ref={el => (this.tableRef = el)}
+                tabIndex={'0'}
+                role={'grid'}
+                className={tableClassNames}
+                {...tableProps}>
+                <caption className={classes.caption}>{title}</caption>
+                <TableHeadComponent
+                  columns={columns}
+                  activeColumn={activeColumn}
+                  data={displayData}
+                  count={rowCount}
+                  page={page}
+                  rowsPerPage={rowsPerPage}
+                  selectedRows={selectedRows}
+                  selectRowUpdate={this.selectRowUpdate}
+                  toggleSort={this.toggleSortColumn}
+                  setCellRef={this.setHeadCellRef}
+                  expandedRows={expandedRows}
+                  areAllRowsExpanded={this.areAllRowsExpanded}
+                  toggleAllExpandableRows={this.toggleAllExpandableRows}
+                  options={this.options}
+                  sortOrder={sortOrder}
+                  columnOrder={columnOrder}
+                  updateColumnOrder={this.updateColumnOrder}
+                  draggableHeadCellRefs={this.draggableHeadCellRefs}
+                  tableRef={this.getTableContentRef}
+                  tableId={this.options.tableId}
+                  timers={this.timers}
+                  components={this.props.components}
+                />
+                <TableBodyComponent
+                  data={displayData}
+                  count={rowCount}
+                  columns={columns}
+                  page={page}
+                  rowsPerPage={rowsPerPage}
+                  selectedRows={selectedRows}
+                  selectRowUpdate={this.selectRowUpdate}
+                  previousSelectedRow={previousSelectedRow}
+                  expandedRows={expandedRows}
+                  toggleExpandRow={this.toggleExpandRow}
+                  options={this.options}
+                  columnOrder={columnOrder}
+                  filterList={filterList}
+                  components={this.props.components}
+                  tableId={this.options.tableId}
+                />
+                {this.options.customTableBodyFooterRender
+                  ? this.options.customTableBodyFooterRender({
+                      data: displayData,
+                      count: rowCount,
+                      columns,
+                      selectedRows,
+                      selectableRows: this.options.selectableRows,
+                    })
+                  : null}
+              </MuiTable>
+            );
+            if (DragDropBackend) {
+              return (
+                <DndProvider backend={DragDropBackend} {...dndProps}>{components}</DndProvider>
+              );
+            }
+
+            return components;
+          })()}
         </div>
         <TableFooterComponent
           options={this.options}
