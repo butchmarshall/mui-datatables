@@ -1977,7 +1977,7 @@ class MUIDataTable extends React.Component {
           )}
           {(() => {
             const components = (
-                <MuiTable
+              <MuiTable
                 ref={el => (this.tableRef = el)}
                 tabIndex={'0'}
                 role={'grid'}
@@ -2038,7 +2038,9 @@ class MUIDataTable extends React.Component {
             );
             if (DragDropBackend) {
               return (
-                <DndProvider backend={DragDropBackend} {...dndProps}>{components}</DndProvider>
+                <DndProvider backend={DragDropBackend} {...dndProps}>
+                  {components}
+                </DndProvider>
               );
             }
 
