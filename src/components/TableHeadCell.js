@@ -191,7 +191,7 @@ const TableHeadCell = ({
   return (
     <TableCell
       ref={ref => {
-        drop(ref);
+        drop && drop(ref);
         setCellRef && setCellRef(index + 1, colPosition + 1, ref);
       }}
       className={cellClass}
