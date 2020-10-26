@@ -68,7 +68,7 @@ class TableToolbarSelect extends React.Component {
     const Tooltip = components.Tooltip || MuiTooltip;
 
     return (
-      <Paper className={classes.root}>
+      <Paper className={classes.root + " MUIDataTableToolbarSelect"}>
         <div>
           <Typography variant="subtitle1" className={classes.title}>
             {selectedRows.data.length} {textLabels.text}
